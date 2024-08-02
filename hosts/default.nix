@@ -7,10 +7,10 @@
   flake.nixosConfigurations = let
     # shorten paths
     inherit (inputs.nixpkgs.lib) nixosSystem;
-    mod = "${self}/nixos";
+    mod = "${self}/sys";
 
     # get the basic config to build on top of
-    inherit (import "${self}/nixos") adampad cnix toothpc;
+    inherit (import "${self}/sys") adampad cnix toothpc;
 
     # get these into the module system
     specialArgs = {inherit inputs self;};
@@ -21,17 +21,11 @@
         cnix
         ++ [
           ./cnix
-          "${mod}/core/lanzaboote.nix"
-          "${mod}/core/network/cnix.nix"
-
-          "${mod}/hardware/cnix.nix"
-
-          "${mod}/services/blueman"
-          "${mod}/services/xserver/cnix.nix"
-
-          "${mod}/extra/gaming.nix"
-          "${mod}/extra/android"
-          "${mod}/extra/workstation"
+          "${mod}/opt/boot/lanzaboote.nix"
+          "${mod}/opt/hardware/cnix.nix"
+          "${mod}/opt/network/cnix.nix"
+          "${mod}/opt/nh/cnix.nix"
+          "${mod}/opt/xserver/cnix.nix"
           {
             home-manager = {
               users.cnst.imports = homeImports."cnst@cnix";
@@ -49,14 +43,11 @@
         toothpc
         ++ [
           ./toothpc
-          "${mod}/core/lanzaboote.nix"
-          "${mod}/core/network/toothpc.nix"
-
-          "${mod}/hardware/toothpc.nix"
-
-          "${mod}/services/xserver/toothpc.nix"
-
-          "${mod}/extra/gaming.nix"
+          "${mod}/opt/boot/lanzaboote.nix"
+          "${mod}/opt/hardware/toothpc.nix"
+          "${mod}/opt/network/toothpc.nix"
+          "${mod}/opt/nh/toothpc.nix"
+          "${mod}/opt/xserver/toothpc.nix"
           {
             home-manager = {
               users.toothpick.imports = homeImports."toothpick@toothpc";
@@ -74,15 +65,11 @@
         adampad
         ++ [
           ./adampad
-          "${mod}/core/boot.nix"
-          "${mod}/core/network/adampad.nix"
-
-          "${mod}/hardware/adampad.nix"
-
-          "${mod}/services/xserver/adampad.nix"
-          "${mod}/services/blueman"
-
-          "${mod}/extra/android"
+          "${mod}/opt/boot/boot.nix"
+          "${mod}/opt/hardware/adampad.nix"
+          "${mod}/opt/network/adampad.nix"
+          "${mod}/opt/nh/adampad.nix"
+          "${mod}/opt/xserver/adampad.nix"
           {
             home-manager = {
               users.adam.imports = homeImports."adam@adampad";

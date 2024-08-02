@@ -6,9 +6,9 @@
   ...
 }: {
   imports = [
-    ./substituters.nix
-    ./nixpkgs.nix
-    ./security.nix
+    ./nixpkgs
+    ./home-manager
+    ./substituters
   ];
 
   environment = {
